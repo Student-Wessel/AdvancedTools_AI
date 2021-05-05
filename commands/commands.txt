@@ -1,0 +1,1 @@
+mlagents-learn config/moveAndJumpToGoal.yaml --run-id="SimpleMovment"
