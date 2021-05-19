@@ -9,7 +9,7 @@ public class BoxInsideBox : MonoBehaviour
 
     private List<BoxCollider> spawnAreas;
 
-    private GameObject insideBox;
+    private GameObject insideBox = null;
 
     private void Awake()
     {

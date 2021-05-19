@@ -10,6 +10,9 @@ public class TempLogAnble : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.A))
+            LogAngle();
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             LogAngle();
@@ -23,13 +26,17 @@ public class TempLogAnble : MonoBehaviour
 
         targetPosition2D.Normalize();
 
-        float dot = Vector2.Dot(forward2D, targetPosition2D);
-        float angle = Mathf.Acos(dot) * Mathf.Rad2Deg;
+        float angle = Vector2.Angle(forward2D, targetPosition2D);
+        float angleReward = Map(180 - angle, 0.0f, 180.0f, -1.0f, 1.0f);
 
-        float reward = (180 - angle) * 0.01f;
-        reward -= 0.9f;
+        float distance = (transform.position - target.position).magnitude;
+        float distanceReward = Map(20 - distance, 0.0f, 20.0f, -1.0f, 1.0f);
 
-        if (!float.IsNaN(reward))
-            Debug.Log(reward);
+        Debug.Log(distanceReward);
+    }
+
+    private float Map(float s, float a1, float a2, float b1, float b2)
+    {
+        return b1 + (s - a1) * (b2 - b1) / (a2 - a1);
     }
 }

@@ -27,13 +27,6 @@ public class Spawner : MonoBehaviour
         }
     }
 
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-            SpawnRandomPosition();
-    }
-
     public void SpawnRandomPosition()
     {
         SpawnArea spawnArea = spawnAreas[Random.Range(0, spawnAreas.Count)];
