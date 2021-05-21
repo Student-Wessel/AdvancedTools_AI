@@ -49,6 +49,7 @@ public class MoveJumpAgent : Agent
     {
         sensor.AddObservation(transform.localPosition);
         sensor.AddObservation(goal.localPosition);
+
         //sensor.AddObservation(transform.InverseTransformDirection(rb.velocity));
 
         //float angle = getAngleBetweenTargetAndForward();
@@ -69,63 +70,24 @@ public class MoveJumpAgent : Agent
         float moveZ = act[1];
 
         Vector3 direction = new Vector3(moveX, 0, moveZ).normalized * Time.deltaTime * movmentSpeed;
-        Vector3 newDirection = Vector3.RotateTowards(transform.forward, direction, Time.deltaTime * 10f, 0.0f);
+        Vector3 newDirection = Vector3.RotateTowards(transform.forward, direction, Time.deltaTime * 10f, 5.5f);
 
         transform.localPosition += direction;
-        transform.localRotation = Quaternion.LookRotation(newDirection);
-
-        //var dirToGo = Vector3.zero;
-        //var rotateDir = Vector3.zero;
-
-        //var action = act[0];
-        //switch (action)
-        //{
-        //    case 1:
-        //        dirToGo = transform.forward * 1f;
-        //        break;
-        //    case 2:
-        //        dirToGo = transform.forward * -1f;
-        //        break;
-        //    case 3:
-        //        rotateDir = transform.up * 1f;
-        //        break;
-        //    case 4:
-        //        rotateDir = transform.up * -1f;
-        //        break;
-        //}
-        //transform.Rotate(rotateDir, Time.deltaTime * 200f);
-        //rb.AddForce(dirToGo * 2f, ForceMode.VelocityChange);
+        if (newDirection != Vector3.zero)
+            transform.localRotation = Quaternion.LookRotation(newDirection);
     }
 
     public override void Heuristic(float[] actionsOut)
     {
         actionsOut[0] = -Input.GetAxis("Horizontal");
         actionsOut[1] = -Input.GetAxis("Vertical");
-
-        //actionsOut[0] = 0;
-        //if (Input.GetKey(KeyCode.D))
-        //{
-        //    actionsOut[0] = 3;
-        //}
-        //else if (Input.GetKey(KeyCode.W))
-        //{
-        //    actionsOut[0] = 1;
-        //}
-        //else if (Input.GetKey(KeyCode.A))
-        //{
-        //    actionsOut[0] = 4;
-        //}
-        //else if (Input.GetKey(KeyCode.S))
-        //{
-        //    actionsOut[0] = 2;
-        //}
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Goal"))
         {
-            SetReward(2f);
+            SetReward(1f);
             EndEpisode();
             floorMeshRenderer.material = winMat;
         }
