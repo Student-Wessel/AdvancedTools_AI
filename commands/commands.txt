@@ -1,1 +1,3 @@
 mlagents-learn config/moveAndJumpToGoal.yaml --run-id="MoveNoJumpV1"
+
+mlagents-learn config/simpleAim.yaml --run-id="SimpleAimV1"

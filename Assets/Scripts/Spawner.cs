@@ -8,8 +8,8 @@ public class Spawner : MonoBehaviour
     private GameObject objectToSpawn;
 
     private Transform objectOgParent;
-
     private List<SpawnArea> spawnAreas;
+
     private void Awake()
     {
         if (objectToSpawn == null)
@@ -25,13 +25,6 @@ public class Spawner : MonoBehaviour
             if (childBox != null)
                 spawnAreas.Add(childBox);
         }
-    }
-
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-            SpawnRandomPosition();
     }
 
     public void SpawnRandomPosition()

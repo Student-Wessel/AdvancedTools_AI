@@ -4,58 +4,53 @@ using UnityEngine;
 using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
 
+
 [RequireComponent(typeof(Rigidbody))]
 public class MoveJumpAgent : Agent
 {
     [SerializeField]
-    [Range(1.0f, 5.0f)]
-    private float movmentSpeed = 1f;
+    [Range(1.0f, 20.0f)]
+    private float movmentSpeed = 2f;
 
     [SerializeField]
     private Transform goal;
 
-    [SerializeField]
-    private GameObject elevation,floorToColor;
-
-    [SerializeField]
-    private Material winMat, loseMat;
-
-    [SerializeField]
-    private Spawner agentSpawner, goalSpawner;
-
     private Rigidbody rb;
-    private MeshRenderer floorMeshRenderer;
+    private AgentEnvironment agentEnvironment;
 
+    public delegate void EpisodeBeginHandler(object source, System.EventArgs args);
+    public event EpisodeBeginHandler episodeBeginHandler;
+
+    public bool WasPreviousEpisodeSuccess = false;
 
     public void Awake()
     {
+        agentEnvironment = GetComponentInParent<AgentEnvironment>();
+        if (agentEnvironment == null)
+        {
+            gameObject.SetActive(false);
+            Debug.LogError("NO PARENT ENVIRONMENT FOUND");
+            return;
+        }
+
         rb = GetComponent<Rigidbody>();
         rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
-        floorMeshRenderer = floorToColor.GetComponent<MeshRenderer>();
-        movmentSpeed *= 2f;
     }
 
     public override void OnEpisodeBegin()
     {
-        agentSpawner.SpawnRandomPosition();
-        goalSpawner.SpawnRandomPosition();
-
         rb.rotation = Quaternion.identity;
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
+
+        if (episodeBeginHandler != null)
+            episodeBeginHandler(this, System.EventArgs.Empty);
     }
 
     public override void CollectObservations(VectorSensor sensor)
     {
         sensor.AddObservation(transform.localPosition);
         sensor.AddObservation(goal.localPosition);
-
-        //sensor.AddObservation(transform.InverseTransformDirection(rb.velocity));
-
-        //float angle = getAngleBetweenTargetAndForward();
-
-        //if (float.IsNaN(angle) == false)
-        //    sensor.AddObservation(angle);
     }
 
     public override void OnActionReceived(float[] act)
@@ -88,25 +83,14 @@ public class MoveJumpAgent : Agent
         if (other.CompareTag("Goal"))
         {
             SetReward(1f);
+            WasPreviousEpisodeSuccess = true;
             EndEpisode();
-            floorMeshRenderer.material = winMat;
         }
         else if (other.CompareTag("Wall"))
         {
             SetReward(-1f);
+            WasPreviousEpisodeSuccess = false;
             EndEpisode();
-            floorMeshRenderer.material = loseMat;
         }
-    }
-
-    private float getAngleBetweenTargetAndForward()
-    {
-        Vector2 forward2D = new Vector2(transform.forward.x, transform.forward.z);
-        Vector2 targetPosition2D = new Vector2(goal.transform.position.x, goal.transform.position.z).normalized;
-
-        float dot = Vector2.Dot(forward2D, targetPosition2D);
-        float angle = Mathf.Acos(dot) * Mathf.Rad2Deg;
-
-        return angle;
     }
 }

@@ -366,14 +366,9 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 3000
-  movmentSpeed: 4
+  movmentSpeed: 10
   goal: {fileID: 7242020966482755297}
-  elevation: {fileID: 0}
-  floorToColor: {fileID: 5618758728086397511}
-  winMat: {fileID: 2100000, guid: 3fd2cd7d282897543b2c6fbabc4a2c84, type: 2}
-  loseMat: {fileID: 2100000, guid: 1b5c8f99405836e47aec81a76dfe3cf9, type: 2}
-  agentSpawner: {fileID: 7242020964446044348}
-  goalSpawner: {fileID: 7242020966512156556}
+  WasPreviousEpisodeSuccess: 0
 --- !u!114 &476488073278542702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -672,6 +667,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5615115418890211037}
+  - component: {fileID: 3717324563210159564}
   m_Layer: 0
   m_Name: SmallSimpleEnv
   m_TagString: Untagged
@@ -698,6 +694,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3717324563210159564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5618498451720771237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e33259120e1ee46a1aa2e8aa443d57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentSpawner: {fileID: 7242020964446044348}
+  goalSpawner: {fileID: 7242020966512156556}
+  floorToColor: {fileID: 5618758728086397511}
+  winMat: {fileID: 2100000, guid: 3fd2cd7d282897543b2c6fbabc4a2c84, type: 2}
+  loseMat: {fileID: 2100000, guid: 1b5c8f99405836e47aec81a76dfe3cf9, type: 2}
+  agent: {fileID: 476488073278542701}
 --- !u!1 &5618563544381744651
 GameObject:
   m_ObjectHideFlags: 0
@@ -1284,7 +1298,7 @@ Transform:
   m_GameObject: {fileID: 7242020965338243227}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 1, z: 10}
+  m_LocalScale: {x: 5, y: 1, z: 5}
   m_Children: []
   m_Father: {fileID: 7242020964446044349}
   m_RootOrder: 0

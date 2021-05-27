@@ -9,6 +9,7 @@ TagManager:
   - Wall
   - Goal
   - Elevation
+  - Shootable
   layers:
   - Default
   - TransparentFX
