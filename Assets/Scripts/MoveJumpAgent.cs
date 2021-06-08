@@ -13,6 +13,9 @@ public class MoveJumpAgent : Agent
     private float movmentSpeed = 2f;
 
     [SerializeField]
+    private float jumpForce = 5f, gravityMultiplier = 2f;
+
+    [SerializeField]
     private Transform goal;
 
     private Rigidbody rb;
@@ -22,6 +25,21 @@ public class MoveJumpAgent : Agent
     public event EpisodeBeginHandler episodeBeginHandler;
 
     public bool WasPreviousEpisodeSuccess = false;
+
+    [SerializeField]
+    private float groundCheckHeight = 0.01f;
+
+    [SerializeField]
+    private float cooldownAfterJump = 0.05f;
+    private float jumpCooldown = 0f;
+
+    private bool isGrounded = true;
+    private int groundLayer;
+
+    public ForceMode jumpForceMode = ForceMode.Acceleration;
+    public ForceMode gravityForceMode = ForceMode.Acceleration;
+
+    float halfScale;
 
     public void Awake()
     {
@@ -33,8 +51,11 @@ public class MoveJumpAgent : Agent
             return;
         }
 
+        groundLayer = LayerMask.GetMask("Ground");
+        halfScale = transform.localScale.magnitude / 2;
+
         rb = GetComponent<Rigidbody>();
-        rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+        rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
     }
 
     public override void OnEpisodeBegin()
@@ -49,8 +70,9 @@ public class MoveJumpAgent : Agent
 
     public override void CollectObservations(VectorSensor sensor)
     {
-        sensor.AddObservation(transform.localPosition);
-        sensor.AddObservation(goal.localPosition);
+        sensor.AddObservation(transform.localPosition); // 3
+        sensor.AddObservation(goal.localPosition); // 3
+        sensor.AddObservation(rb.velocity); // 3
     }
 
     public override void OnActionReceived(float[] act)
@@ -63,19 +85,67 @@ public class MoveJumpAgent : Agent
     {
         float moveX = act[0];
         float moveZ = act[1];
+        float moveJumpInput = act[2];
+
+        isGrounded = IsGrounded();
 
         Vector3 direction = new Vector3(moveX, 0, moveZ).normalized * Time.deltaTime * movmentSpeed;
         Vector3 newDirection = Vector3.RotateTowards(transform.forward, direction, Time.deltaTime * 10f, 5.5f);
 
-        transform.localPosition += direction;
         if (newDirection != Vector3.zero)
             transform.localRotation = Quaternion.LookRotation(newDirection);
+
+        // Jump
+        if (jumpCooldown <= 0 && isGrounded && moveJumpInput > 0.5f)
+        {
+            rb.AddForce(Vector3.up * jumpForce, jumpForceMode);
+            jumpCooldown = cooldownAfterJump;
+        }
+        else if (jumpCooldown > 0)
+            jumpCooldown -= Time.deltaTime;
+
+        // Grounded movment speed
+        if (isGrounded)
+        {
+            //transform.localPosition += direction;
+            rb.AddForce(newDirection * movmentSpeed, ForceMode.Impulse);
+        }// Air movment speed
+        if (!isGrounded)
+        {
+            rb.AddForce((newDirection * movmentSpeed)*0.05f, ForceMode.Impulse);
+            rb.AddForce(-Vector3.up * gravityMultiplier, gravityForceMode);
+        }
+
+
     }
 
     public override void Heuristic(float[] actionsOut)
     {
         actionsOut[0] = -Input.GetAxis("Horizontal");
         actionsOut[1] = -Input.GetAxis("Vertical");
+        actionsOut[2] = (Input.GetKey(KeyCode.Space) ? 1 : 0);
+    }
+
+    private bool IsGrounded()
+    {
+        if (Physics.Raycast(transform.position + new Vector3(halfScale, 0, halfScale), -Vector3.up, groundCheckHeight,groundLayer))
+        {
+            return true;
+        }
+        else if (Physics.Raycast(transform.position + new Vector3(halfScale, 0, -halfScale), -Vector3.up, groundCheckHeight, groundLayer))
+        {
+            return true;
+        }
+        else if (Physics.Raycast(transform.position + new Vector3(-halfScale, 0, halfScale), -Vector3.up, groundCheckHeight, groundLayer))
+        {
+            return true;
+        }
+        else if (Physics.Raycast(transform.position + new Vector3(-halfScale, 0, -halfScale), -Vector3.up, groundCheckHeight, groundLayer))
+        {
+            return true;
+        }
+
+        return false;
     }
 
     private void OnTriggerEnter(Collider other)

@@ -1,0 +1,47 @@
+{
+    "MoveAndJumpToGoal": {
+        "checkpoints": [
+            {
+                "steps": 2499980,
+                "file_path": "results\\MoveAndJumpV1\\MoveAndJumpToGoal\\MoveAndJumpToGoal-2499980.onnx",
+                "reward": 0.2470740382042196,
+                "creation_time": 1622550873.2743423
+            },
+            {
+                "steps": 2999972,
+                "file_path": "results\\MoveAndJumpV1\\MoveAndJumpToGoal\\MoveAndJumpToGoal-2999972.onnx",
+                "reward": -0.032000042498111725,
+                "creation_time": 1622551450.4994802
+            },
+            {
+                "steps": 3499971,
+                "file_path": "results\\MoveAndJumpV1\\MoveAndJumpToGoal\\MoveAndJumpToGoal-3499971.onnx",
+                "reward": -0.4052222701410452,
+                "creation_time": 1622552015.6565046
+            },
+            {
+                "steps": 3999954,
+                "file_path": "results\\MoveAndJumpV1\\MoveAndJumpToGoal\\MoveAndJumpToGoal-3999954.onnx",
+                "reward": 0.1500999867916107,
+                "creation_time": 1622552583.1080906
+            },
+            {
+                "steps": 4000152,
+                "file_path": "results\\MoveAndJumpV1\\MoveAndJumpToGoal\\MoveAndJumpToGoal-4000152.onnx",
+                "reward": 0.19751513749361038,
+                "creation_time": 1622552583.210103
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 4000152,
+            "file_path": "results\\MoveAndJumpV1\\MoveAndJumpToGoal.onnx",
+            "reward": 0.19751513749361038,
+            "creation_time": 1622552583.210103
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.2.0",
+        "mlagents_version": "0.25.1",
+        "torch_version": "1.8.1+cu102"
+    }
+}

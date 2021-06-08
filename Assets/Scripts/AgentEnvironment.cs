@@ -5,7 +5,10 @@ using UnityEngine;
 public class AgentEnvironment : MonoBehaviour
 {
     [SerializeField]
-    private Spawner agentSpawner, goalSpawner;
+    private Spawner agentSpawner, elevationSpawner;
+
+    [SerializeField]
+    private Elevation elevation;
 
     private MeshRenderer floorMeshRenderer;
 
@@ -39,6 +42,8 @@ public class AgentEnvironment : MonoBehaviour
         agent.WasPreviousEpisodeSuccess = false;
 
         agentSpawner.SpawnRandomPosition();
-        goalSpawner.SpawnRandomPosition();
+        elevationSpawner.SpawnRandomPosition();
+        elevation.RandomScale();
+        elevation.goalRandomPosition();
     }
 }

@@ -367,8 +367,10 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   MaxStep: 3000
   movmentSpeed: 10
+  jumpForce: 10
   goal: {fileID: 7242020966482755297}
   WasPreviousEpisodeSuccess: 0
+  cooldownAfterJump: 0.05
 --- !u!114 &476488073278542702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -384,10 +386,10 @@ MonoBehaviour:
   m_BrainParameters:
     VectorObservationSize: 6
     NumStackedVectorObservations: 1
-    VectorActionSize: 02000000
+    VectorActionSize: 03000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
-  m_Model: {fileID: 5022602860645237092, guid: 050f3917302d1ea418c67ffa4f4fe524, type: 3}
+  m_Model: {fileID: 0}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: MoveAndJumpToGoal
@@ -758,7 +760,7 @@ GameObject:
   - component: {fileID: 5585594714611803275}
   - component: {fileID: 5554595124554442525}
   - component: {fileID: 5597556509334703589}
-  m_Layer: 14
+  m_Layer: 12
   m_Name: Ground
   m_TagString: ground
   m_Icon: {fileID: 0}
@@ -1400,7 +1402,7 @@ Transform:
   m_GameObject: {fileID: 7242020965633269851}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -1, z: 0}
-  m_LocalScale: {x: 0.15, y: 1, z: 0.15}
+  m_LocalScale: {x: 0.1, y: 1, z: 0.1}
   m_Children:
   - {fileID: 5615111618724534617}
   - {fileID: 5614886797373612015}
