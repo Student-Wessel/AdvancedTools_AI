@@ -12,6 +12,7 @@ public class Spawner : MonoBehaviour
 
     private void Awake()
     {
+
         if (objectToSpawn == null)
             gameObject.SetActive(false);
 
@@ -25,6 +26,7 @@ public class Spawner : MonoBehaviour
             if (childBox != null)
                 spawnAreas.Add(childBox);
         }
+
     }
 
     public void SpawnRandomPosition()
