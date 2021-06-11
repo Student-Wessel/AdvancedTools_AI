@@ -1828,7 +1828,7 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 2000
+  MaxStep: 800
   WasPreviousEpisodeSuccess: 0
 --- !u!114 &4706204501332526446
 MonoBehaviour:

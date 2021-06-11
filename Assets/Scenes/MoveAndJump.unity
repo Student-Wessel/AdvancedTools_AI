@@ -480,7 +480,7 @@ MonoBehaviour:
   groundCheckHeight: 0.55
   cooldownAfterJump: 0.05
   airControl: 0.1
-  model: {fileID: 0}
+  model: {fileID: 5022602860645237092, guid: f2ecf0b59af06c14f9b3b92183f02a7d, type: 3}
 --- !u!4 &1028367801 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 738584664548727005, guid: c55794fc1eee58d4a96ba506d71efe39,

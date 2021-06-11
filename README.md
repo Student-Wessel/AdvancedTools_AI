@@ -21,7 +21,7 @@ I decided to start with a config i found on the internet that demonstrated a sce
 https://towardsdatascience.com/an-introduction-to-unity-ml-agents-6238452fcf4c
 
 All of the results can be found at this url:
-https://tensorboard.dev/experiment/xOp8Q2MZRvmVm2w0dgk6hw/#scalars
+https://tensorboard.dev/experiment/In5dM7hBTBugVK7cP7KnfQ/
 You can also open them offline if you have tensorboard installed. The logdir folder is the results folder.
 
 I first ran the same config 3 times to check how much randomness there was while using the same config. 
@@ -39,4 +39,18 @@ You can find the results in the higher_hunits_config_moveJump_v1_run_1 file.
 The last thing i want to try is to increase the batch and buffer size in hyperparameters.
 Looking at the results this did not have any impact on the learning.
 
-From these findings i see that increasing the hidden units in the network settings helped to speed up 
+From these findings i see that increasing the hidden units in the network settings helped to speed up.
+
+All in all the changing on configurations did had an effect, almost always it's effect wasn't a lot.
+That's why i tried to change something else, like the way you give out rewards. 
+Changing the way a agent is reward a lot of times starts with a good idea, but the many times i tried the agent was just though to do the not worst thing, instead of doing the best thing. For example. You want to punish the agent for jumping to much, so you add an negatif reward when the agent jumps. But what ended up happening is that the agent just stop jumping all together. It saw that it got a better reward from just moving around in the environment then jumping around in the environment.
+
+With this knowledge and looking at the ML-Agents examples, it looked like the best reward structure was the most simple one. Where you can either reach a goal and get a positive reward, and everything else is a negative reward.
+
+But taking a good look at the way you want to reward the agent i though that there must be a way to atleast reward it for going up and staying on the elevation. There where I got an idea. The agent is given a negative reward for each step it makes divided by the total amount of steps it can make. What if we take this negative reward away when its standing on the elevation.
+
+My hypothesis would be that it learn that staying on the elevation would be better than being on the ground. It also should stop the agent from jumping on the elevation, since it only for being on the elevation when it actually hits it.
+
+The result from this test can be found in:
+new_reward_way_v1_run_1
+

@@ -97,7 +97,6 @@ public class MoveJumpAgent : Agent
 
     public override void OnActionReceived(float[] act)
     {
-        AddReward(-1f / MaxStep);
         MoveAgent(act);
     }
 
@@ -109,6 +108,9 @@ public class MoveJumpAgent : Agent
 
         isGrounded = IsGrounded();
         isGroundedOnElevation = IsOnElevation();
+
+        if (isGroundedOnElevation == false)
+            AddReward(-1f / MaxStep);
 
         Vector3 direction = new Vector3(moveX, 0, moveZ).normalized * Time.deltaTime * config.MovmentSpeed;
         Vector3 newDirection = Vector3.RotateTowards(transform.forward, direction, Time.deltaTime * 10f, 5.5f);

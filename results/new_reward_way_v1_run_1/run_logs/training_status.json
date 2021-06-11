@@ -1,0 +1,47 @@
+{
+    "MoveAndJumpToGoal": {
+        "checkpoints": [
+            {
+                "steps": 6499982,
+                "file_path": "results\\new_reward_way_v1_run_1\\MoveAndJumpToGoal\\MoveAndJumpToGoal-6499982.onnx",
+                "reward": -0.9999999776482582,
+                "creation_time": 1623396907.4267607
+            },
+            {
+                "steps": 6999904,
+                "file_path": "results\\new_reward_way_v1_run_1\\MoveAndJumpToGoal\\MoveAndJumpToGoal-6999904.onnx",
+                "reward": -0.9999999776482582,
+                "creation_time": 1623397388.1887562
+            },
+            {
+                "steps": 7499901,
+                "file_path": "results\\new_reward_way_v1_run_1\\MoveAndJumpToGoal\\MoveAndJumpToGoal-7499901.onnx",
+                "reward": -0.05187498405575752,
+                "creation_time": 1623397871.2160172
+            },
+            {
+                "steps": 7999888,
+                "file_path": "results\\new_reward_way_v1_run_1\\MoveAndJumpToGoal\\MoveAndJumpToGoal-7999888.onnx",
+                "reward": -0.4156249649822712,
+                "creation_time": 1623398352.136749
+            },
+            {
+                "steps": 8269992,
+                "file_path": "results\\new_reward_way_v1_run_1\\MoveAndJumpToGoal\\MoveAndJumpToGoal-8269992.onnx",
+                "reward": -0.4233333220084508,
+                "creation_time": 1623398610.7181375
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 8269992,
+            "file_path": "results\\new_reward_way_v1_run_1\\MoveAndJumpToGoal.onnx",
+            "reward": -0.4233333220084508,
+            "creation_time": 1623398610.7181375
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.2.0",
+        "mlagents_version": "0.25.1",
+        "torch_version": "1.8.1+cu102"
+    }
+}
